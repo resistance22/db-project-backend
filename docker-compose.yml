@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: "unless-stopped"
+    environment:
+      POSTGRES_PASSWORD: secretpostgrespassword
+      POSTGRES_USER: postgres
+      POSTGRES_DB: application_db
+    volumes:
+      - /home/amin/sales_app_db_data:/var/lib/postgresql/data
+    networks:
+      - sales_app
+  backend:
+    image: sales_app_backend
+    environment:
+      PORT: 4000
+    ports:
+      - 4000:4000
+    depends_on:
+      - db
+    build: sales_app_backend
+    volumes:
+      - .:/usr/src/app
+      - ./node_modules:/usr/src/app/node_modules
+    command: npm run dev
+    networks:
+      - sales_app
+
+networks:
+  sales_app:
+    driver: bridge
