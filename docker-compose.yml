@@ -12,15 +12,15 @@ services:
       - /home/amin/db_project_db_data:/var/lib/postgresql/data
     networks:
       - db_project
-  backend:
-    image: sales_app_backend
+  api:
+    image: db_project_api
     environment:
       PORT: 4000
     ports:
       - 4000:4000
     depends_on:
       - db
-    build: sales_app_backend
+    build: db_project_api
     volumes:
       - .:/usr/src/app
       - ./node_modules:/usr/src/app/node_modules
