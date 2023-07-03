@@ -11,10 +11,6 @@ COPY . .
 
 RUN ["npm","run","build"]
 
-
-ENV SERVER_PORT=4000
-ENV SERVER_HOST=0.0.0.0
-
 EXPOSE 4000
 
 CMD ["npm", "start"]

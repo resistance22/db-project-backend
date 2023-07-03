@@ -1,13 +1,14 @@
 import { User } from "@infra/DB/entities/User.entity"
 import { RequestHandler } from "express"
 import { Repository } from "typeorm"
-import { User as UserEntitiy } from "../src/domain/entities/User.entity"
+import { User as UserEntitiy } from "@entities/User.entity"
 export { }
 
 declare global {
   declare namespace UserNS {
     declare namespace DTO {
       interface NewUser {
+        role: number
         first_name: string
         last_name: string
         email: string
@@ -21,25 +22,13 @@ declare global {
       }
     }
 
-    interface IUserUsecases {
-      register: (userData: UserNS.DTO.NewUser) => Promise<UserEntitiy>,
-      signIn: (userData: { identifier: string, password: string }) => Promise<string>
-    }
-
     declare namespace UseCases {
       interface IUserRegister {
-        execute: (userData: UserNS.DTO.NewUser) => Promise<UserEntitiy>,
+        execute(userData: UserNS.DTO.NewUser): Promise<UserEntitiy>,
       }
 
       interface IUserSignIn {
         execute: (userData: { identifier: string, password: string }) => Promise<{
-          accessToken: string,
-          refreshToken: string
-        }>
-      }
-
-      interface IUserConfirmMail {
-        execute: (email: string, code: string) => Promise<{
           accessToken: string,
           refreshToken: string
         }>
@@ -51,17 +40,20 @@ declare global {
     }
 
     interface IUserRepository {
-      insertNewUser: (user: UserNS.DTO.NewUser) => Promise<UserEntitiy>
+      insertNewUser(user: UserNS.DTO.NewUser) :Promise<UserEntitiy>
       fetchUserByPhoneNumber: (phone_number: string) => Promise<UserEntitiy | null>
       fetchUserByEmail: (email: string) => Promise<UserEntitiy | null>
       fetchUserByIdentifier: (identifier: string) => Promise<UserEntitiy | null>
       fetchUserByID: (id: string) => Promise<UserEntitiy | null>
+      insertRefreshToken(user: UserEntitiy, refresh_token: string):void
     }
 
+    interface IUserEntity extends UserEntitiy {}
+
     interface IUserUtils {
+      hasPassword(plainPass: string): Promise<string>
       checkPassword: (encryptedPass: string, plainPass: string) => Promise<boolean>
-      makeJWT: (user: UserEntitiy, expiresIn?: number) => Promise<string>
-      generateEmailConfirmationCode: () => string
+      makeJWT(user: Omit<IUserEntity, "password">, secret: string, expiresIn?: number):Promise<string>
     }
 
     interface EmailServices {

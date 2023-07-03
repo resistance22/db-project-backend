@@ -3,10 +3,11 @@ import express from "express"
 import { ErrorHandlerMiddleWare } from '@middlewares/ErrorHandler'
 import { middlewareFactory } from "@middlewares/index"
 import dotenv from "dotenv"
+import { generateTables } from "./utils"
 
 async function main() {
   dotenv.config()
-  const port = process.env.PORT
+  const port = process.env.SERVER_PORT
   const app = express()
   const reqLogger = middlewareFactory({
     type: "ReqLogger"
@@ -15,6 +16,8 @@ async function main() {
   app.use(express.json())
   app.use(reqLogger)
   app.use(ErrorHandlerMiddleWare)
+
+  await generateTables()
 
   app.get("/", (req, res) => {
     res.send("Hello World From Docker")

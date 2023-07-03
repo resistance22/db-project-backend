@@ -1,4 +1,5 @@
-class User {
+export class User {
+    user_id: number
     role: number
     password: string
     first_name: string

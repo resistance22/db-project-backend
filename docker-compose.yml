@@ -4,30 +4,45 @@ services:
   db:
     image: postgres:15-alpine
     restart: "unless-stopped"
+    container_name: project_db
     environment:
       POSTGRES_PASSWORD: secretpostgrespassword
       POSTGRES_USER: postgres
       POSTGRES_DB: application_db
     volumes:
       - /home/amin/db_project_db_data:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
     networks:
       - db_project
   api:
     image: db_project_api
-    environment:
-      PORT: 4000
+    container_name: backend_api
     ports:
       - 4000:4000
     depends_on:
       - db
-    build: db_project_api
+    build: .
     volumes:
       - .:/usr/src/app
       - ./node_modules:/usr/src/app/node_modules
     command: npm run dev
     networks:
       - db_project
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "5555:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+    networks:
+      - db_project
 
+      
 networks:
   db_project:
     driver: bridge

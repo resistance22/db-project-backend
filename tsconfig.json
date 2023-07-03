@@ -28,22 +28,25 @@
     "baseUrl": "./src", /* Specify the base directory to resolve non-relative module names. */
     "paths": {
       "@entities/*": [
-        "domain/entities/*"
+        "Domain/Enitity/*"
       ],
       "@usecases/*": [
-        "domain/usecases/*"
+        "Domain/UseCases/*"
+      ],
+      "@errors/*": [
+        "Domain/Errors/*"
       ],
       "@middlewares/*": [
         "middlewares/*"
       ],
       "@infra/*": [
-        "infra/*"
+        "Infra/*"
       ],
       "@persistance/*": [
         "persistance/*"
       ],
       "@repos/*": [
-        "infra/repositories/*"
+        "Repos/*"
       ],
       "@services/*": [
         "services/*"
