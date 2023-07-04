@@ -7,6 +7,7 @@ export const NewUserJ = Joi.object({
   phone_number: Joi.string().required(),
   password: Joi.string().required().min(8),
   confirm_pass: Joi.string().required().valid(Joi.ref('password')).messages({ "any.only": "Passwords do not match" }),
+  role: Joi.number().integer().min(1).max(3).required(),
 })
 
 export const UserJ = Joi.object({
@@ -18,7 +19,7 @@ export const UserJ = Joi.object({
   email_confimred: Joi.boolean().required(),
   registered_at: Joi.string().required(),
   updated_at: Joi.string().required(),
-  role: Joi.number().integer().min(1).max(3),
+  role: Joi.number().integer().min(1).max(3).required(),
 })
 
 
