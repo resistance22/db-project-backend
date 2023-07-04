@@ -18,7 +18,7 @@ export const UserJ = Joi.object({
   email_confimred: Joi.boolean().required(),
   registered_at: Joi.string().required(),
   updated_at: Joi.string().required(),
-  role: Joi.string().valid("customer", "admin", "shopkeeper"),
+  role: Joi.number().integer().min(1).max(3),
 })
 
 
