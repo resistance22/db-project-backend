@@ -12,7 +12,7 @@ export class UserRegister implements UserNS.UseCases.IUserRegister {
         if (foundUserByPhone != null) {
             throw new DuplicateError("phone_number", "This Phone Number alreadey exists")
         }
-        const foundUserByEmail = await this.userRepo.fetchUserByPhoneNumber(userData.email)
+        const foundUserByEmail = await this.userRepo.fetchUserByEmail(userData.email)
         if (foundUserByEmail != null) {
             throw new DuplicateError("email", "This Email alreadey exists")
         }
