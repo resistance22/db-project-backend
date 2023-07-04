@@ -1,4 +1,4 @@
-import { NextFunction, RequestHandler, Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { HTTPError } from '../assets/HTTPError'
 
 export const reqBodyValidator = (validator: IValidator) => async (req: Request, _: Response, next: NextFunction) => {

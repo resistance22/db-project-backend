@@ -1,7 +1,7 @@
-export class WronCrudentialsError extends Error {
+export class WrongCrudentialsError extends Error {
     duplicateAttr: string
     constructor(message: string) {
         super(message)
-        this.name = "WronCrudentials"
+        this.name = "WrongCrudentials"
     }
 }

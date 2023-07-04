@@ -2,6 +2,7 @@ import "module-alias/register"
 import express from "express"
 import { ErrorHandlerMiddleWare } from '@middlewares/ErrorHandler'
 import { middlewareFactory } from "@middlewares/index"
+import { authRouter } from "@routes/auth/index"
 import dotenv from "dotenv"
 import { generateTables } from "./utils"
 
@@ -15,7 +16,12 @@ async function main() {
   app.use(express.static("public"))
   app.use(express.json())
   app.use(reqLogger)
+
+
+  app.use("/", authRouter)
+
   app.use(ErrorHandlerMiddleWare)
+
 
   await generateTables()
 
