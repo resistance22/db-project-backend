@@ -30,7 +30,7 @@ services:
     networks:
       - db_project
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:6.14
     restart: unless-stopped
     depends_on:
       - db
@@ -42,7 +42,6 @@ services:
     networks:
       - db_project
 
-      
 networks:
   db_project:
     driver: bridge
