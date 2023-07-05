@@ -15,7 +15,6 @@ export class UserSignIn implements UserNS.UseCases.IUserSignIn {
         }
 
         const isPasswordOK = await this.userUtils.checkPassword(foundUser.password, password)
-
         if (!isPasswordOK) {
             throw new WrongCrudentialsError("Wrong Crudentials")
         }
@@ -28,8 +27,11 @@ export class UserSignIn implements UserNS.UseCases.IUserSignIn {
         // this.userRepo.insertRefreshToken(foundUser, refreshToken)
 
         return {
-            accessToken,
-            refreshToken
+            user: usrWithoutPass,
+            tokens: {
+                accessToken,
+                refreshToken
+            }
         }
     }
 }

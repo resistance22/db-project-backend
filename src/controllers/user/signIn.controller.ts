@@ -14,8 +14,11 @@ export const userSignInController = async (req: Request, res: Response, next: Ne
     )
 
     try {
-        const { accessToken } = await userSignInUseCase.execute(req.body)
-        res.json({ accessToken })
+        const { tokens, user } = await userSignInUseCase.execute(req.body)
+        res.json({
+            accessToken: tokens.accessToken,
+            user
+        })
     } catch (e: any) {
         if (e.name == "WrongCrudentials") {
             const error = new HTTPError(401, "Wrong Crudentials Provided", ["Wrong Crudentials Provided"])

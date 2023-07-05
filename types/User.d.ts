@@ -29,8 +29,11 @@ declare global {
 
       interface IUserSignIn {
         execute: (userData: { identifier: string, password: string }) => Promise<{
-          accessToken: string,
-          refreshToken: string
+          user: Omit<UserEntitiy, "password">,
+          tokens: {
+            accessToken: string,
+            refreshToken: string
+          }
         }>
       }
     }
@@ -40,20 +43,20 @@ declare global {
     }
 
     interface IUserRepository {
-      insertNewUser(user: UserNS.DTO.NewUser) :Promise<UserEntitiy>
+      insertNewUser(user: UserNS.DTO.NewUser): Promise<UserEntitiy>
       fetchUserByPhoneNumber: (phone_number: string) => Promise<UserEntitiy | null>
       fetchUserByEmail: (email: string) => Promise<UserEntitiy | null>
       fetchUserByIdentifier: (identifier: string) => Promise<UserEntitiy | null>
       fetchUserByID: (id: string) => Promise<UserEntitiy | null>
-      insertRefreshToken(user: UserEntitiy, refresh_token: string):void
+      insertRefreshToken(user: UserEntitiy, refresh_token: string): void
     }
 
-    interface IUserEntity extends UserEntitiy {}
+    interface IUserEntity extends UserEntitiy { }
 
     interface IUserUtils {
       hasPassword(plainPass: string): Promise<string>
       checkPassword: (encryptedPass: string, plainPass: string) => Promise<boolean>
-      makeJWT(user: Omit<IUserEntity, "password">, secret: string, expiresIn?: number):Promise<string>
+      makeJWT(user: Omit<IUserEntity, "password">, secret: string, expiresIn?: number): Promise<string>
     }
 
     interface EmailServices {
