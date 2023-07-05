@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS panel_user (
 	email varchar(255) NOT NULL,
 	phone_number char(11) NOT NULL,
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-	updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	password char(70)
 );
 
 
