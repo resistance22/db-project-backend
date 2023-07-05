@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS product (
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	CONSTRAINT fk_author
 		FOREIGN KEY (creator_user_id)
-			REFRENCES panel_user(user_id)
+			REFERENCES panel_user(user_id)
 );
 
 CREATE TABLE IF NOT EXISTS refresh_tokens (
