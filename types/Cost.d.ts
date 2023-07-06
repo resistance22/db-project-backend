@@ -17,11 +17,13 @@ declare global {
     }
 
     declare namespace UseCases {
-
+      interface IAddCost {
+        execute(costData: CostNS.DTO.NewCost, creator_id: number): Promise<CostEntity>,
+      }
     }
 
     interface ICostRepository {
-      insertNewCost(cost: CostNS.DTO.NewCost, creator_id: number): Promise<CostEntity>
+      insertNewCost(cost: CostNS.DTO.NewCost, creator_id: number): Promise<CostEntity | null>
       getCostByID(id: number): Promise<CostEntity | null>
     }
 
