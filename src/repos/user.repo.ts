@@ -89,9 +89,16 @@ export class UserRepo implements UserNS.IUserRepository {
         const values = [per_page, offset]
 
         const sql = `SELECT * FROM panel_user WHERE role!=1 ORDER BY ${sort_by} ${sort_order} LIMIT $1 OFFSET $2`
+        const countSQL = 'SELECT COUNT(user_id) FROM panel_user WHERE role!=1 '
         const client = await this.connection.connect()
         const res: QueryResult<User> = await client.query(sql, values);
+        const count: QueryResult<{ count: string }> = await client.query(countSQL)
         await client.release()
-        return res.rows;
+        return {
+            result: res.rows,
+            meta: {
+                total: parseInt(count.rows[0].count)
+            }
+        };
     }
 }
