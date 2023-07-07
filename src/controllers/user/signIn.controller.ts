@@ -15,8 +15,11 @@ export const userSignInController = async (req: Request, res: Response, next: Ne
 
     try {
         const { tokens, user } = await userSignInUseCase.execute(req.body)
+        res.cookie("Auth", tokens.accessToken, {
+            httpOnly: true,
+            secure: false
+        })
         res.json({
-            accessToken: tokens.accessToken,
             user
         })
     } catch (e: any) {
