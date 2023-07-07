@@ -17,6 +17,18 @@ export class CostRepo implements CostNS.ICostRepository {
     return res.rows[0];
   }
 
+  async deleteCost(id: number): Promise<Cost | null> {
+    const sql = 'DELETE FROM cost_type WHERE id=$1 RETURNING *'
+    const values = [id]
+    const client = await this.connection.connect()
+    const res: QueryResult<Cost> = await client.query(sql, values)
+    await client.release()
+    if (res.rowCount === 0) {
+      return null
+    }
+    return res.rows[0];
+  }
+
   async insertNewCost(cost: CostNS.DTO.NewCost, creator_id: number) {
     const sql = 'INSERT INTO cost_type(creator_user_id, title) VALUES($1, $2) RETURNING *;'
     const values = [creator_id, cost.title]
