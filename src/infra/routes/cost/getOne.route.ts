@@ -10,4 +10,4 @@ const authMiddleware = middlewareFactory({
   roles: [ROLES.ADMIN, ROLES.PURCHASING]
 })
 
-getOneCostRouter.get("/", authMiddleware, getOneCostController);
+getOneCostRouter.get("/:costID", authMiddleware, getOneCostController);
