@@ -20,8 +20,13 @@ export class CostRepo implements CostNS.ICostRepository {
     const sql = 'INSERT INTO cost_type(creator_user_id, title) VALUES($1, $2) RETURNING *;'
     const values = [creator_id, cost.title]
     const client = await this.connection.connect()
-    const res: QueryResult<Cost> = await client.query(sql, values)
-    await client.release()
-    return res.rows[0];
+    try {
+      const res: QueryResult<Cost> = await client.query(sql, values)
+      return res.rows[0];
+    } catch (e) {
+      return null
+    } finally {
+      await client.release()
+    }
   }
 }

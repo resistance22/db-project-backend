@@ -85,9 +85,6 @@ export class UserRepo implements UserNS.IUserRepository {
         const client = await this.connection.connect()
         const res: QueryResult<User> = await client.query(sql);
         await client.release()
-        if (res.rowCount == 0) {
-            return null
-        }
-        return res.rows[0];
+        return res.rows;
     }
 }
