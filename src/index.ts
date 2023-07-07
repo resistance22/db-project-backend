@@ -2,7 +2,7 @@ import "module-alias/register"
 import express from "express"
 import { ErrorHandlerMiddleWare } from '@middlewares/ErrorHandler'
 import { middlewareFactory } from "@middlewares/index"
-import { authRouter } from "@routes/auth/index"
+import { globalRouter } from "@routes/index"
 import { generateTables } from "./utils"
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
@@ -27,7 +27,7 @@ async function main() {
   app.use(reqLogger)
 
 
-  app.use("/", authRouter)
+  app.use("/", globalRouter)
 
   app.use(ErrorHandlerMiddleWare)
 
