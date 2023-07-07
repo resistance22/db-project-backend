@@ -20,6 +20,10 @@ declare global {
       interface IAddCost {
         execute(costData: CostNS.DTO.NewCost, creator_id: number): Promise<CostEntity>,
       }
+
+      interface IGetOneCost {
+        execute(id: number): Promise<CostEntity>,
+      }
     }
 
     interface getCostQuery {
