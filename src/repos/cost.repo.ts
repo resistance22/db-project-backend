@@ -34,11 +34,15 @@ export class CostRepo implements CostNS.ICostRepository {
     const sql = 'SELECT * FROM cost_type WHERE title=$1;'
     const values = [title]
     const client = await this.connection.connect()
-    const res: QueryResult<Cost> = await client.query(sql, values)
-    await client.release()
-    if (res.rowCount === 0) {
+    try {
+      const res: QueryResult<Cost> = await client.query(sql, values)
+      return res.rows[0];
+    } catch (e) {
+      console.log(e)
       return null
+    } finally {
+      await client.release()
     }
-    return res.rows[0];
+
   }
 }
