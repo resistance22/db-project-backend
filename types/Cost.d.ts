@@ -24,6 +24,10 @@ declare global {
       interface IGetOneCost {
         execute(id: number): Promise<CostEntity>,
       }
+
+      interface IDelteCost {
+        execute(id: number): Promise<CostEntity>,
+      }
     }
 
     interface getCostQuery {
