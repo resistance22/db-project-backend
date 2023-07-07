@@ -80,10 +80,17 @@ export class UserRepo implements UserNS.IUserRepository {
         return res.rows[0];
     }
 
-    async getUsersList() {
-        const sql = 'SELECT * FROM panel_user WHERE role!=1'
+    async getUsersList(query: UserNS.getUsersQuery = {}) {
+        const sort_by = query?.sort_by || "created_at"
+        const sort_order = query?.sort_order || "DESC"
+        const page = query?.page || 1
+        const per_page = query?.per_page || 20
+        const offset = (page - 1) * per_page
+        const values = [per_page, offset]
+
+        const sql = `SELECT * FROM panel_user WHERE role!=1 ORDER BY ${sort_by} ${sort_order} LIMIT $1 OFFSET $2`
         const client = await this.connection.connect()
-        const res: QueryResult<User> = await client.query(sql);
+        const res: QueryResult<User> = await client.query(sql, values);
         await client.release()
         return res.rows;
     }
