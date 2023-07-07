@@ -1,11 +1,9 @@
 import { Request, Response, NextFunction } from "express"
-
-import { UserUtils } from '@infra/UserUtils'
 import { HTTPError } from "@/assets/HTTPError"
 import { CostRepo } from "@/repos/cost.repo"
 import { UpdateCostUseCase } from "@/domain/usecases/cost/update.usecase"
 
-export const addNewCostController = async (req: Request, res: Response, next: NextFunction) => {
+export const updateCostController = async (req: Request, res: Response, next: NextFunction) => {
   const costRepository = new CostRepo()
   const addCostUseCase = new UpdateCostUseCase(
     costRepository,

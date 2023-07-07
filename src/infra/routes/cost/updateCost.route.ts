@@ -1,10 +1,10 @@
 import { Request, Router } from "express";
 import { NewCostValidator } from "@validators/Cost.validator"
 import { middlewareFactory } from '@middlewares/index'
-import { addNewCostController } from '@controllers/cost/addNew.controller'
+import { updateCostController } from '@controllers/cost/updateCost.controller'
 import { ROLES } from "@/Enums"
 
-export const addNewCostRouter = Router()
+export const updateCostRouter = Router()
 
 const bodyValidator = middlewareFactory({
   "type": "BodyValidator",
@@ -16,4 +16,4 @@ const authMiddleware = middlewareFactory({
   roles: [ROLES.ADMIN, ROLES.PURCHASING]
 })
 
-addNewCostRouter.put("/:costID", authMiddleware, bodyValidator, addNewCostController)
+updateCostRouter.put("/:costID", authMiddleware, bodyValidator, updateCostController)
