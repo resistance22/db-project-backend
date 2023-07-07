@@ -31,6 +31,20 @@ export class CostRepo implements CostNS.ICostRepository {
     }
   }
 
+  async updateCost(id: number, cost: CostNS.DTO.NewCost): Promise<Cost | null> {
+    const sql = 'UPDATE cost_type SET title=$1 WHERE id=$2 RETURNING *'
+    const values = [cost.title, id]
+    const client = await this.connection.connect()
+    try {
+      const res: QueryResult<Cost> = await client.query(sql, values)
+      return res.rows[0];
+    } catch (e) {
+      return null
+    } finally {
+      await client.release()
+    }
+  }
+
   async getCostByTitle(title: string) {
     const sql = 'SELECT * FROM cost_type WHERE title=$1;'
     const values = [title]

@@ -39,6 +39,7 @@ declare global {
           total: number
         }
       }>
+      updateCost(id: number, cost: CostNS.DTO.NewCost): Promise<CostEntity | null>
     }
 
     interface IUserEntity extends UserEntitiy { }
