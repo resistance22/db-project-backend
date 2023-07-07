@@ -25,6 +25,7 @@ declare global {
     interface ICostRepository {
       insertNewCost(cost: CostNS.DTO.NewCost, creator_id: number): Promise<CostEntity | null>
       getCostByID(id: number): Promise<CostEntity | null>
+      getCostByTitle(title: string): Promise<CostEntity | null>
     }
 
     interface IUserEntity extends UserEntitiy { }
