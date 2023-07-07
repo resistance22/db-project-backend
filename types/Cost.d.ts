@@ -22,10 +22,23 @@ declare global {
       }
     }
 
+    interface getCostQuery {
+      page?: number
+      per_page?: number
+      sort_by?: string
+      sort_order?: sortOrder
+    }
+
     interface ICostRepository {
       insertNewCost(cost: CostNS.DTO.NewCost, creator_id: number): Promise<CostEntity | null>
       getCostByID(id: number): Promise<CostEntity | null>
       getCostByTitle(title: string): Promise<CostEntity | null>
+      getCostList(query?: getCostQuery): Promise<{
+        result: CostEntity[],
+        meta: {
+          total: number
+        }
+      }>
     }
 
     interface IUserEntity extends UserEntitiy { }
