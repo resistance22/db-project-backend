@@ -49,6 +49,7 @@ declare global {
       fetchUserByIdentifier: (identifier: string) => Promise<UserEntitiy | null>
       fetchUserByID: (id: string) => Promise<UserEntitiy | null>
       insertRefreshToken(user: UserEntitiy, refresh_token: string): void
+      getUsersList(): Promise<UserEntitiy[]>
     }
 
     interface IUserEntity extends UserEntitiy { }
