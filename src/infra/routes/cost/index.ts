@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { addNewCostRouter } from "@infra/routes/cost/addNewCost.route"
 
-export const usersRouter = Router()
+export const costRouter = Router()
 
-usersRouter.use('/costs', addNewCostRouter)
+costRouter.use('/costs', addNewCostRouter)
