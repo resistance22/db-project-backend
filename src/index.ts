@@ -10,6 +10,11 @@ import dotenv from "dotenv"
 
 async function main() {
   dotenv.config()
+  const corsOption = {
+    origin: ['http://localhost:5173'],
+    credentials: true
+  }
+
   const port = process.env.SERVER_PORT
   const app = express()
   const reqLogger = middlewareFactory({
@@ -18,7 +23,7 @@ async function main() {
   app.use(express.static("public"))
   app.use(express.json())
   app.use(cookieParser())
-  app.use(cors())
+  app.use(cors(corsOption))
   app.use(reqLogger)
 
 
