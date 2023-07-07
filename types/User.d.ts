@@ -42,6 +42,15 @@ declare global {
       type register = (usecase: UseCases.IUserRegister) => IRoute
     }
 
+
+
+    interface getUsersQuery {
+      page?: number
+      per_page?: number
+      sort_by?: string
+      sort_order?: sortOrder
+    }
+
     interface IUserRepository {
       insertNewUser(user: UserNS.DTO.NewUser): Promise<UserEntitiy>
       fetchUserByPhoneNumber: (phone_number: string) => Promise<UserEntitiy | null>
@@ -49,7 +58,7 @@ declare global {
       fetchUserByIdentifier: (identifier: string) => Promise<UserEntitiy | null>
       fetchUserByID: (id: string) => Promise<UserEntitiy | null>
       insertRefreshToken(user: UserEntitiy, refresh_token: string): void
-      getUsersList(): Promise<UserEntitiy[]>
+      getUsersList(query?: getUsersQuery): Promise<UserEntitiy[]>
     }
 
     interface IUserEntity extends UserEntitiy { }

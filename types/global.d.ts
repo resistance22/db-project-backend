@@ -4,6 +4,8 @@ export { }
 
 declare global {
   type Method = "PUT" | "GET" | "POST" | "DELETE"
+  type sortOrder = "ASC" | "DESC"
+
   interface IRoute {
     method: Method
     controller: RequestHandler
