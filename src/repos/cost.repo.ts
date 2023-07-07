@@ -55,7 +55,7 @@ export class CostRepo implements CostNS.ICostRepository {
     const values = [per_page, offset]
 
     const sql = `SELECT * FROM cost_type ORDER BY ${sort_by} ${sort_order} LIMIT $1 OFFSET $2`
-    const countSQL = 'SELECT COUNT(user_id) FROM cost_type'
+    const countSQL = 'SELECT COUNT(id) FROM cost_type'
     const client = await this.connection.connect()
     const res: QueryResult<Cost> = await client.query(sql, values);
     const count: QueryResult<{ count: string }> = await client.query(countSQL)
