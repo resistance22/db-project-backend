@@ -14,11 +14,10 @@ export const authMiddleware = (roles: ROLES[]) => async (req: Request, _: Respon
     if (!roles.includes(decoded.role)) {
       return next(new HTTPError(403, "Not Authorized to do this!", ["You can't add users"]))
     }
+    req.user = decoded
     return next()
   } catch (err) {
     console.log(err)
     return next(new HTTPError(401, 'Invalid Token Provided', []))
   }
-
-
 }
