@@ -91,6 +91,6 @@ export class CostRepo implements CostNS.ICostRepository {
       meta: {
         total: parseInt(count.rows[0].count)
       }
-    };
+    }
   }
 }

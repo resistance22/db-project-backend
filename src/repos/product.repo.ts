@@ -19,4 +19,26 @@ export class ProductRepo implements ProductNS.IProductRepository {
     }
   }
 
+  async getProductsList(query?: any) {
+    const sort_by = query?.sort_by || "created_at"
+    const sort_order = query?.sort_order || "DESC"
+    const page = query?.page || 1
+    const per_page = query?.per_page || 20
+    const offset = (page - 1) * per_page
+    const values = [per_page, offset]
+
+    const sql = `SELECT * FROM product ORDER BY ${sort_by} ${sort_order} LIMIT $1 OFFSET $2`
+    const countSQL = 'SELECT COUNT(id) FROM product'
+    const client = await this.connection.connect()
+    const res: QueryResult<Cost> = await client.query(sql, values);
+    const count: QueryResult<{ count: string }> = await client.query(countSQL)
+    await client.release()
+    return {
+      result: res.rows,
+      meta: {
+        total: parseInt(count.rows[0].count)
+      }
+    }
+  }
+
 }

@@ -25,6 +25,12 @@ declare global {
 
     interface IProductRepository {
       insertNewProduct(newProduct: ProductNS.DTO.NewProduct, creator_id: number): Promise<ProductEntity | null>
+      getProductsList(query?: getCostQuery): Promise<{
+        result: CostEntity[],
+        meta: {
+          total: number
+        }
+      }>
     }
   }
 }
