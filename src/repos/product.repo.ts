@@ -28,7 +28,7 @@ export class ProductRepo implements ProductNS.IProductRepository {
     const values = [per_page, offset]
 
     const sql = `SELECT * FROM product ORDER BY ${sort_by} ${sort_order} LIMIT $1 OFFSET $2`
-    const countSQL = 'SELECT COUNT(id) FROM product'
+    const countSQL = 'SELECT COUNT(product_code) FROM product'
     const client = await this.connection.connect()
     const res: QueryResult<Cost> = await client.query(sql, values);
     const count: QueryResult<{ count: string }> = await client.query(countSQL)
