@@ -29,6 +29,10 @@ declare global {
         execute(cost_id: number): Promise<CostAmountEntity>,
       }
 
+      interface IDeleteCostAmount {
+        execute(aount_id: number): Promise<CostAmountEntity>,
+      }
+
       interface IGetListByCost {
         execute(cost_id: number): Promise<{
           result: CostAmountEntity[],
