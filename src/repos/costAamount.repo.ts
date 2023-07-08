@@ -70,7 +70,7 @@ export class CostAmountRepo implements CostAmountNS.ICostAmountRepository {
 
   async updateCostAmount(cost_id: number, costData: CostAmountNS.DTO.UpdateCostAmount) {
     const sql = 'UPDATE cost_amount SET unit_price=$1, created_at=$2 WHERE id=$3 RETURNING *'
-    const values = [costData.unit_price, costData.date, cost_id]
+    const values = [costData.unit_price, costData.created_at, cost_id]
     const client = await this.connection.connect()
     try {
       const res: QueryResult<CostAmount> = await client.query(sql, values)

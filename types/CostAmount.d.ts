@@ -12,7 +12,7 @@ declare global {
 
       interface UpdateCostAmount {
         unit_price: number
-        date: string
+        created_at: string
       }
     }
 

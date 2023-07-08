@@ -6,7 +6,7 @@ export const NewCostAmount = Joi.object({
 
 export const UpdateCostAmount = Joi.object({
   unit_price: Joi.number().required(),
-  date: Joi.string().required()
+  created_at: Joi.string().required()
 })
 
 
