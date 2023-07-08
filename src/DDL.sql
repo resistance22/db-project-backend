@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS cost_type (
 
 CREATE TABLE IF NOT EXISTS cost_amount (
 	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-	unit_price money NOT NULL,
+	unit_price NUMERIC(19,5) NOT NULL,
 	creator_user_id INT NOT NULL,
 	cost_type_id INT NOT NULL,
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
