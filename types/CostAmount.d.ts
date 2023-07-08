@@ -6,8 +6,8 @@ declare global {
   declare namespace CostAmountNS {
     declare namespace DTO {
       interface NewCostAmount {
-        value: number
-        date: string
+        unit_price: number
+        cost_id: number
       }
     }
 
