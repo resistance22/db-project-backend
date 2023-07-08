@@ -15,6 +15,15 @@ declare global {
       interface IAddCostAmount {
         execute(cosAmountData: CostAmountNS.DTO.NewCost, creator_id: number, cost_id: number): Promise<CostAmountEntity>,
       }
+
+      interface IGetListByCost {
+        execute(cost_id: number): Promise<{
+          result: CostAmountEntity[],
+          meta: {
+            total: number
+          }
+        }>,
+      }
     }
 
     interface getCostAmountQuery {
@@ -27,6 +36,12 @@ declare global {
     interface ICostAmountRepository {
       insertNewCostAmount(cost: CostAmountNS.DTO.NewCostAmount, creator_id: number, cost_id): Promise<CostAmountEntity | null>
       getCostAmountByID(cost_id: number): Promise<CostAmountEntity | null>
+      getCostAmountListByCostID(cost_id: number, query?: getCostAmountQuery): Promise<{
+        result: CostAmountEntity[],
+        meta: {
+          total: number
+        }
+      } | null>
     }
 
     interface IUserEntity extends UserEntitiy { }
