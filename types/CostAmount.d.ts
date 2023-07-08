@@ -9,11 +9,20 @@ declare global {
         unit_price: number
         cost_id: number
       }
+
+      interface UpdateCostAmount {
+        unit_price: number
+        date: string
+      }
     }
 
     declare namespace UseCases {
       interface IAddCostAmount {
         execute(cosAmountData: CostAmountNS.DTO.NewCost, creator_id: number, cost_id: number): Promise<CostAmountEntity>,
+      }
+
+      interface IUpdateCostAmount {
+        execute(cost_id: number, costData: CostAmountNS.DTO.UpdateCostAmount): Promise<CostAmountEntity>,
       }
 
       interface IGetListByCost {
@@ -42,6 +51,7 @@ declare global {
           total: number
         }
       } | null>
+      updateCostAmount(cost_id: number, costData: CostAmountNS.DTO.UpdateCostAmount): Promise<CostAmountEntity | null>
     }
 
     interface IUserEntity extends UserEntitiy { }
