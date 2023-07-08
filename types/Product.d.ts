@@ -14,6 +14,9 @@ declare global {
       interface IAddProduct {
         execute(cosAmountData: ProductNS.DTO.NewProduct, creator_id: number): Promise<ProductEntity>,
       }
+      interface IUpdateProduct {
+        execute(productData: ProductNS.DTO.NewProduct, product_id: number): Promise<ProductEntity>,
+      }
     }
 
     interface getProductsQuery {
