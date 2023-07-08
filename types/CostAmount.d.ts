@@ -12,9 +12,9 @@ declare global {
     }
 
     declare namespace UseCases {
-      // interface IAddCost {
-      //   execute(costData: CostAmountNS.DTO.NewCost, creator_id: number): Promise<CostAmountEntity>,
-      // }
+      interface IAddCostAmount {
+        execute(cosAmountData: CostAmountNS.DTO.NewCost, creator_id: number, cost_id: number): Promise<CostAmountEntity>,
+      }
     }
 
     interface getCostAmountQuery {
@@ -26,6 +26,7 @@ declare global {
 
     interface ICostAmountRepository {
       insertNewCostAmount(cost: CostAmountNS.DTO.NewCostAmount, creator_id: number, cost_id): Promise<CostAmountEntity | null>
+      getCostAmountByID(cost_id: number): Promise<CostAmountEntity | null>
     }
 
     interface IUserEntity extends UserEntitiy { }
