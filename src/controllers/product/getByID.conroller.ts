@@ -7,6 +7,9 @@ export const getProductByIDController = async (req: Request, res: Response, next
 
   try {
     const foundProduct = await repo.getProductByID(parseInt(req.params.productID))
+    if (foundProduct == null) {
+      return next(new HTTPError(404, 'محصول یافت نشد!', []))
+    }
     return res.json(foundProduct)
   } catch (e) {
     console.log(e)
