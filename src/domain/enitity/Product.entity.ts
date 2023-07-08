@@ -1,4 +1,4 @@
-interface product {
+export class Product {
   product_code: number
   title: string
   creator_user_id: number
