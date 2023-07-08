@@ -32,6 +32,7 @@ declare global {
         }
       }>
       getProductByID(id: number): Promise<ProductEntity | null>
+      updateProduct(id: number, product: ProductNS.DTO.NewProduct): Promise<ProductEntity | null>
     }
   }
 }

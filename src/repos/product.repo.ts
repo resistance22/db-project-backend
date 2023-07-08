@@ -53,4 +53,17 @@ export class ProductRepo implements ProductNS.IProductRepository {
     return res.rows[0];
   }
 
+  async updateProduct(id: number, product: ProductNS.DTO.NewProduct) {
+    const sql = 'UPDATE product SET title=$1 WHERE product_code=$2 RETURNING *'
+    const values = [product.title, id]
+    const client = await this.connection.connect()
+    try {
+      const res: QueryResult<Product> = await client.query(sql, values)
+      return res.rows[0];
+    } catch (e) {
+      return null
+    } finally {
+      await client.release()
+    }
+  }
 }
