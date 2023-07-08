@@ -1,0 +1,15 @@
+import { Request, Response, NextFunction } from "express"
+import { HTTPError } from "@/assets/HTTPError"
+import { ProductRepo } from "@/repos/product.repo"
+
+export const getProductByIDController = async (req: Request, res: Response, next: NextFunction) => {
+  const repo = new ProductRepo()
+
+  try {
+    const foundProduct = await repo.getProductByID(parseInt(req.params.productID))
+    return res.json(foundProduct)
+  } catch (e) {
+    console.log(e)
+    return next(new HTTPError(500, 'Something Went Wrong!', []))
+  }
+}
