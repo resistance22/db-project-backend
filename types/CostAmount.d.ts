@@ -25,6 +25,10 @@ declare global {
         execute(cost_id: number, costData: CostAmountNS.DTO.UpdateCostAmount): Promise<CostAmountEntity>,
       }
 
+      interface IGetAmountBYID {
+        execute(cost_id: number): Promise<CostAmountEntity>,
+      }
+
       interface IGetListByCost {
         execute(cost_id: number): Promise<{
           result: CostAmountEntity[],
