@@ -41,4 +41,16 @@ export class ProductRepo implements ProductNS.IProductRepository {
     }
   }
 
+  async getProductByID(id: number): Promise<Product | null> {
+    const sql = 'SELECT * FROM product WHERE product_code=$1;'
+    const values = [id]
+    const client = await this.connection.connect()
+    const res: QueryResult<Product> = await client.query(sql, values)
+    await client.release()
+    if (res.rowCount === 0) {
+      return null
+    }
+    return res.rows[0];
+  }
+
 }

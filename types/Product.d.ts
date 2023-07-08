@@ -31,6 +31,7 @@ declare global {
           total: number
         }
       }>
+      getProductByID(id: number): Promise<ProductEntity | null>
     }
   }
 }
