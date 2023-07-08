@@ -83,4 +83,25 @@ export class CostAmountRepo implements CostAmountNS.ICostAmountRepository {
     }
   }
 
+  async deleteCostAmount(amount_id: number) {
+    const sql = 'DELETE FROM cost_amount WHERE id=$1 RETURNING *'
+    const values = [amount_id]
+    const client = await this.connection.connect()
+
+    try {
+      const res: QueryResult<CostAmount> = await client.query(sql, values)
+      if (res.rowCount === 0) {
+        return null
+      }
+      return res.rows[0];
+    } catch (e) {
+      console.log(e)
+      return null
+    } finally {
+
+      await client.release()
+    }
+  }
+
+
 }
