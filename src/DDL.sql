@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS product_costs (
 	creator_user_id INT NOT NULL,
 	cost_type_id INT NOT NULL,
 	product_id INT NOT NULL,
-	amount INT NOT NULL,
+	quantity INT NOT NULL,
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	PRIMARY KEY (cost_type_id, product_id),

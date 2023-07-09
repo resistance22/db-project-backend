@@ -36,6 +36,7 @@ declare global {
       }>
       getProductByID(id: number): Promise<ProductEntity | null>
       updateProduct(id: number, product: ProductNS.DTO.NewProduct): Promise<ProductEntity | null>
+      addCostTypeToProduct(product_id: number, cost_id: number, creator_id: number, quantity: number): Promise<{ success: boolean } | null>
     }
   }
 }

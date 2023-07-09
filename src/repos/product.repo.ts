@@ -66,4 +66,18 @@ export class ProductRepo implements ProductNS.IProductRepository {
       await client.release()
     }
   }
+
+  async addCostTypeToProduct(product_id: number, cost_id: number, creator_id: number, quantity: number) {
+    const sql = 'INSERT INTO product_costs(creator_user_id, cost_type_id, product_id, quantity) VALUES($1, $2, $3, $4) RETURNING *;'
+    const values = [creator_id, cost_id, product_id, quantity]
+    const client = await this.connection.connect()
+    try {
+      const res: QueryResult<Product> = await client.query(sql, values)
+      return res.rows[0];
+    } catch (e) {
+      return null
+    } finally {
+      await client.release()
+    }
+  }
 }
