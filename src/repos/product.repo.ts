@@ -88,7 +88,7 @@ export class ProductRepo implements ProductNS.IProductRepository {
     WHERE product_id=$1`
     const values = [product_id]
     const client = await this.connection.connect()
-    const res: QueryResult<Product> = await client.query(sql, values)
+    const res: QueryResult = await client.query(sql, values)
     await client.release()
     if (res.rowCount === 0) {
       return null
