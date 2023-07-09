@@ -80,4 +80,19 @@ export class ProductRepo implements ProductNS.IProductRepository {
       await client.release()
     }
   }
+
+  async getProductCosts(product_id: number) {
+    const sql = `SELECT * FROM product_costs 
+    INNER JOIN cost_type
+    ON product_costs.cost_type_id = cost_type.id
+    WHERE product_id=$1`
+    const values = [product_id]
+    const client = await this.connection.connect()
+    const res: QueryResult<Product> = await client.query(sql, values)
+    await client.release()
+    if (res.rowCount === 0) {
+      return null
+    }
+    return res.rows[0];
+  }
 }
