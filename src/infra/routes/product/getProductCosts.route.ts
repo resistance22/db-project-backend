@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { middlewareFactory } from '@middlewares/index'
-import { getProductByIDController } from '@controllers/product/getByID.conroller'
+import { getProductCostsController } from '@controllers/product/getCosts.controller'
 import { ROLES } from "@/Enums"
 
 export const getProductCostsRouter = Router()
@@ -10,4 +10,4 @@ const authMiddleware = middlewareFactory({
   roles: [ROLES.ADMIN, ROLES.SALES]
 })
 
-getProductCostsRouter.get("/costs/:productID", authMiddleware, getProductByIDController);
+getProductCostsRouter.get("/costs/:productID", authMiddleware, getProductCostsController);

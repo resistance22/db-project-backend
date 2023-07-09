@@ -93,6 +93,6 @@ export class ProductRepo implements ProductNS.IProductRepository {
     if (res.rowCount === 0) {
       return null
     }
-    return res.rows[0];
+    return res.rows;
   }
 }
