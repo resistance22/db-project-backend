@@ -1,6 +1,5 @@
 import { Pool, QueryResult } from 'pg'
 import { Cost } from "@entities/Cost.entity"
-import { hash } from 'bcrypt'
 
 export class CostRepo implements CostNS.ICostRepository {
   connection: Pool = new Pool()
@@ -95,12 +94,11 @@ export class CostRepo implements CostNS.ICostRepository {
   }
 
   async searchCostByTitle(title: string) {
-    const sql = 'SELECT * FROM cost_type WHERE title LIKE %$1%'
-    const values = [title]
+    const sql = `SELECT * FROM cost_type WHERE title LIKE '%${title}%'`
     const client = await this.connection.connect()
     try {
-      const res: QueryResult<Cost[]> = await client.query(sql, values)
-      return res.rows[0];
+      const res: QueryResult<Cost> = await client.query(sql)
+      return res.rows;
     } catch (e) {
       console.log(e)
       return null
