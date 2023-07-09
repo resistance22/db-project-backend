@@ -4,7 +4,7 @@ import { getProductsListRouter } from "@infra/routes/product/getList.route"
 import { getProductByIDRouter } from "@infra/routes/product/getByID.route"
 import { updateProductRouter } from "@infra/routes/product/update.route"
 import { addCostToProductRouter } from "@infra/routes/product/addCost.route"
-
+import { getProductCostsRouter } from "@/infra/routes/product/getProductCosts.route";
 
 export const prodcutRouter = Router()
 
@@ -14,6 +14,7 @@ prodcutRouter.use(
   getProductsListRouter,
   getProductByIDRouter,
   updateProductRouter,
-  addCostToProductRouter
+  addCostToProductRouter,
+  getProductCostsRouter
 )
 

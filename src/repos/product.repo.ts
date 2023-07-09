@@ -82,7 +82,7 @@ export class ProductRepo implements ProductNS.IProductRepository {
   }
 
   async getProductCosts(product_id: number) {
-    const sql = `SELECT * FROM product_costs 
+    const sql = `SELECT title, quantity, cost_type_id, product_id FROM product_costs 
     INNER JOIN cost_type
     ON product_costs.cost_type_id = cost_type.id
     WHERE product_id=$1`
