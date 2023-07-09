@@ -93,4 +93,19 @@ export class CostRepo implements CostNS.ICostRepository {
       }
     }
   }
+
+  async searchCostByTitle(title: string) {
+    const sql = 'SELECT * FROM cost_type WHERE title LIKE %$1%'
+    const values = [title]
+    const client = await this.connection.connect()
+    try {
+      const res: QueryResult<Cost[]> = await client.query(sql, values)
+      return res.rows[0];
+    } catch (e) {
+      console.log(e)
+      return null
+    } finally {
+      await client.release()
+    }
+  }
 }
